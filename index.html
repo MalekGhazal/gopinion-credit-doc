@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gopinion Credit System Documentation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --secondary-color: #3b82f6;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --light-gray: #f1f5f9;
+        --border: #e2e8f0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          'Helvetica Neue', Arial, sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background: #ffffff;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        color: white;
+        padding: 3rem 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+
+      header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      /* Navigation */
+      nav {
+        background: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid var(--border);
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 1rem 0;
+      }
+
+      nav a {
+        color: var(--dark);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        transition: all 0.3s;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      nav a:hover {
+        background: var(--light-gray);
+        color: var(--primary-color);
+      }
+
+      /* Main Content */
+      main {
+        padding: 3rem 0;
+      }
+
+      section {
+        margin-bottom: 4rem;
+        scroll-margin-top: 80px;
+      }
+
+      h2 {
+        color: var(--primary-color);
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid var(--primary-color);
+      }
+
+      h3 {
+        color: var(--dark);
+        font-size: 1.5rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      h4 {
+        color: var(--gray);
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        margin-bottom: 1rem;
+        color: var(--gray);
+      }
+
+      ul,
+      ol {
+        margin-left: 2rem;
+        margin-bottom: 1rem;
+        color: var(--gray);
+      }
+
+      li {
+        margin-bottom: 0.5rem;
+      }
+
+      /* Tables */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+        background: white;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      th {
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      tr:hover {
+        background: var(--light-gray);
+      }
+
+      /* Code Blocks */
+      pre {
+        background: var(--dark);
+        color: #10b981;
+        padding: 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      code {
+        background: var(--light-gray);
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9em;
+        color: var(--primary-color);
+      }
+
+      /* Alert Boxes */
+      .alert {
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+        border-left: 4px solid;
+      }
+
+      .alert-info {
+        background: #dbeafe;
+        border-color: var(--primary-color);
+        color: #1e40af;
+      }
+
+      .alert-success {
+        background: #d1fae5;
+        border-color: var(--success-color);
+        color: #065f46;
+      }
+
+      .alert-warning {
+        background: #fef3c7;
+        border-color: var(--warning-color);
+        color: #92400e;
+      }
+
+      .alert-danger {
+        background: #fee2e2;
+        border-color: var(--danger-color);
+        color: #991b1b;
+      }
+
+      .alert-title {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      /* Cards */
+      .card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 1rem;
+      }
+
+      /* Grid Layout */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      /* Example Blocks */
+      .example {
+        background: var(--light-gray);
+        border-left: 4px solid var(--secondary-color);
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 4px;
+      }
+
+      .example-title {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.75rem;
+      }
+
+      /* Footer */
+      footer {
+        background: var(--dark);
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+        margin-top: 4rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 2rem;
+        }
+
+        nav ul {
+          flex-direction: column;
+        }
+
+        table {
+          font-size: 0.9rem;
+        }
+
+        th,
+        td {
+          padding: 0.75rem;
+        }
+      }
+
+      /* Print Styles */
+      @media print {
+        nav {
+          display: none;
+        }
+
+        section {
+          page-break-inside: avoid;
+        }
+      }
+
+      /* Badges */
+      .badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+      }
+
+      .badge-success {
+        background: var(--success-color);
+        color: white;
+      }
+
+      .badge-warning {
+        background: var(--warning-color);
+        color: white;
+      }
+
+      .badge-danger {
+        background: var(--danger-color);
+        color: white;
+      }
+
+      .badge-info {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      /* Status Indicators */
+      .status-indicator {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0.5rem 0;
+      }
+
+      .status-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+
+      .status-green {
+        background: var(--success-color);
+      }
+      .status-yellow {
+        background: var(--warning-color);
+      }
+      .status-red {
+        background: var(--danger-color);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>📊 Gopinion Credit System Documentation</h1>
+        <p style="color: white">
+          Complete technical and user-facing specifications for the credit-based
+          SMS system
+        </p>
+      </div>
+    </header>
+
+    <nav>
+      <div class="container">
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#fundamentals">Credit Fundamentals</a></li>
+          <li><a href="#consumption">Consumption Rules</a></li>
+          <li><a href="#plans">Subscription Plans</a></li>
+          <li><a href="#journey">User Journey</a></li>
+          <li><a href="#csv">CSV Upload</a></li>
+          <li><a href="#purchase">Credit Purchase</a></li>
+          <li><a href="#notifications">Notifications</a></li>
+          <li><a href="#renewal">Auto-Renewal</a></li>
+          <li><a href="#management">Subscription Management</a></li>
+          <li><a href="#ui">Dashboard UI</a></li>
+          <li><a href="#technical">Technical Notes</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container">
+      <!-- System Overview -->
+      <section id="overview">
+        <h2>System Overview</h2>
+        <p>
+          Gopinion operates on a credit-based SMS system where clients purchase
+          monthly credits to send review requests via SMS. The system integrates
+          subscription management, credit tracking, usage notifications, and
+          flexible upgrade/downgrade options.
+        </p>
+
+        <div class="alert alert-info">
+          <div class="alert-title">🎯 Key Feature</div>
+          Gopinion prevents bad reviews from going public by catching negative
+          feedback before it reaches review platforms, while automatically
+          requesting reviews from satisfied customers.
+        </div>
+      </section>
+
+      <!-- Credit Fundamentals -->
+      <section id="fundamentals">
+        <h2>Credit Fundamentals</h2>
+
+        <h3>Credit Definition</h3>
+        <div class="card">
+          <p><strong>1 Credit = 1 SMS message sent</strong></p>
+          <p>
+            Credits are consumed based on actual SMS sends, not on data
+            processed.
+          </p>
+        </div>
+
+        <h3>Credit Types</h3>
+        <div class="grid">
+          <div class="card">
+            <div class="card-title">✅ Unlimited Credits</div>
+            <ul>
+              <li>Available on specific plans</li>
+              <li>No monthly cap on SMS sends</li>
+              <li>No credit tracking or notifications</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">📊 Limited Credits</div>
+            <ul>
+              <li>Monthly allocation based on subscription tier</li>
+              <li>Resets on billing cycle date</li>
+              <li>Does not roll over to next month</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Credit Consumption Rules -->
+      <section id="consumption">
+        <h2>Credit Consumption Rules</h2>
+
+        <h3>Standard SMS Send</h3>
+        <div class="example">
+          <div class="example-title">Cost: 1 Credit</div>
+          <p>Single SMS with review link included in message body</p>
+        </div>
+
+        <h3>Split SMS Send (Message + Link Separate)</h3>
+        <div class="example">
+          <div class="example-title">Cost: 1 Credit</div>
+          <ul>
+            <li>SMS message body (SMS #1)</li>
+            <li>Review link (SMS #2)</li>
+          </ul>
+          <div class="alert alert-warning">
+            <strong>Important:</strong> Counted as single credit despite being 2
+            physical SMS messages. Provides better deliverability and user
+            experience.
+          </div>
+        </div>
+
+        <h3>MMS Logo Attachment</h3>
+        <div class="example">
+          <div class="example-title">
+            Cost: +1 Additional Credit (Total: 2 Credits)
+          </div>
+          <ul>
+            <li>Base SMS message: 1 credit</li>
+            <li>Logo image attachment (MMS): +1 credit</li>
+            <li>
+              <strong>Total: 2 credits per send when logo is included</strong>
+            </li>
+          </ul>
+        </div>
+
+        <h3>Usage Examples</h3>
+        <pre>
+Scenario 1: Standard SMS with link in body
+→ 1 credit consumed
+
+Scenario 2: Split SMS (message + link separate)  
+→ 1 credit consumed (not 2)
+
+Scenario 3: SMS with logo attachment (MMS)
+→ 2 credits consumed
+
+Scenario 4: Split SMS + logo attachment
+→ 2 credits consumed (1 for SMS pair + 1 for logo)</pre
+        >
+      </section>
+
+      <!-- Subscription Plans -->
+      <section id="plans">
+        <h2>Subscription Plans & Credits</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Monthly Cost</th>
+              <th>Credits/Month</th>
+              <th>Review Platforms</th>
+              <th>Support Level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Starter</strong></td>
+              <td>$49 USD</td>
+              <td>100</td>
+              <td>1 platform</td>
+              <td>Email (24-48hrs)</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Growth</strong>
+                <span class="badge badge-success">POPULAR</span>
+              </td>
+              <td>$99 USD</td>
+              <td>300</td>
+              <td>3 platforms</td>
+              <td>Priority (12-24hrs)</td>
+            </tr>
+            <tr>
+              <td><strong>Pro</strong></td>
+              <td>$199 USD</td>
+              <td>750</td>
+              <td>Unlimited</td>
+              <td>Dedicated phone</td>
+            </tr>
+            <tr>
+              <td><strong>Custom</strong></td>
+              <td>Custom pricing</td>
+              <td>Custom/Unlimited</td>
+              <td>Unlimited</td>
+              <td>Account manager</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- User Journey -->
+      <section id="journey">
+        <h2>User Journey & System Flow</h2>
+
+        <h3>Step 1: Subscription Purchase</h3>
+        <p>
+          <strong>Platform:</strong>
+          <a href="https://maxxmedia.ca/pricing" target="_blank"
+            >https://maxxmedia.ca/pricing</a
+          >
+        </p>
+
+        <ol>
+          <li>User views pricing page</li>
+          <li>Selects desired plan (Starter/Growth/Pro/Custom)</li>
+          <li>Clicks "Start Now" button</li>
+          <li>Redirected to Stripe checkout</li>
+          <li>Completes payment securely via Stripe</li>
+          <li>Payment confirmation received</li>
+        </ol>
+
+        <h3>Step 2: Account Creation Redirect</h3>
+        <p><strong>Platform:</strong> Gopinion Dashboard</p>
+
+        <ol>
+          <li>User redirected from Stripe to Gopinion signup portal</li>
+          <li>
+            URL includes subscription metadata (plan type, credits purchased)
+          </li>
+          <li>User presented with account creation form</li>
+        </ol>
+
+        <h4>Required Fields:</h4>
+        <ul>
+          <li>Business name</li>
+          <li>Contact name</li>
+          <li>Email address</li>
+          <li>Phone number</li>
+          <li>Business type/industry</li>
+          <li>Review platform preferences</li>
+          <li>Custom branding (logo upload - optional)</li>
+        </ul>
+
+        <h3>Step 3: Dashboard Access</h3>
+        <ol>
+          <li>Account created and credits provisioned</li>
+          <li>User logs into Gopinion dashboard</li>
+          <li>Credit balance displayed in navbar (always visible)</li>
+          <li>Access to all features based on plan tier</li>
+        </ol>
+      </section>
+
+      <!-- CSV Bulk Upload -->
+      <section id="csv">
+        <h2>CSV Bulk Upload System</h2>
+
+        <h3>Upload Process</h3>
+        <div class="card">
+          <div class="card-title">Pre-Upload Validation:</div>
+          <ol>
+            <li>User selects CSV file for upload</li>
+            <li>System counts total rows in CSV</li>
+            <li>System checks current credit balance</li>
+            <li>
+              System calculates: <code>Available Credits - CSV Rows</code>
+            </li>
+          </ol>
+        </div>
+
+        <h3>Credit Sufficiency Scenarios</h3>
+
+        <div class="example">
+          <div class="example-title">✅ Scenario A: Sufficient Credits</div>
+          <pre>
+CSV Rows: 25
+Available Credits: 50
+Result: ✅ All 25 rows processed and SMS queued
+Credits After: 25 remaining</pre
+          >
+        </div>
+
+        <div class="example">
+          <div class="example-title">⚠️ Scenario B: Insufficient Credits</div>
+          <pre>
+CSV Rows: 40  
+Available Credits: 30
+Result: ⚠️ Partial upload
+- First 30 rows processed
+- Rows 31-40 rejected
+- User notified: "Insufficient credits. Only 30 of 40 contacts uploaded."
+Credits After: 0 remaining</pre
+          >
+        </div>
+
+        <h3>User Notification (Insufficient Credits)</h3>
+        <div class="alert alert-warning">
+          <div class="alert-title">⚠️ Insufficient Credits</div>
+          <p>
+            You have 30 credits remaining, but your CSV contains 40 contacts.
+          </p>
+          <p>Only the first 30 rows will be uploaded and sent.</p>
+          <p><strong>Options:</strong></p>
+          <ul>
+            <li>[Upgrade Plan] - Get more monthly credits</li>
+            <li>[Buy Extra Credits] - One-time credit purchase</li>
+            <li>[Edit CSV] - Remove 10 rows and re-upload</li>
+          </ul>
+        </div>
+
+        <h3>CSV Processing Rules</h3>
+        <ul>
+          <li>Rows processed sequentially (top to bottom)</li>
+          <li>Invalid phone numbers skipped (no credit charged)</li>
+          <li>
+            Duplicate phone numbers within CSV: Only first instance processed
+          </li>
+          <li>
+            Duplicate prevention across entire database (if enabled in plan)
+          </li>
+        </ul>
+      </section>
+
+      <!-- Credit Purchase -->
+      <section id="purchase">
+        <h2>Credit Purchase & Top-Up</h2>
+
+        <h3>Within Dashboard Credit Purchase</h3>
+        <p>
+          <strong>Access Point:</strong> Dashboard → Settings → Credits → "Buy
+          Extra Credits"
+        </p>
+
+        <div class="card">
+          <div class="card-title">Purchase Options:</div>
+          <ul>
+            <li>One-time credit packs</li>
+            <li>Added to existing monthly allocation</li>
+            <li>Does not affect subscription renewal date</li>
+            <li>No expiration on purchased credits</li>
+          </ul>
+        </div>
+
+        <h3>Example Credit Packs</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Credits</th>
+              <th>Price</th>
+              <th>Savings</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>50 Credits</td>
+              <td>$25 USD</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>100 Credits</td>
+              <td>$45 USD</td>
+              <td>10% discount</td>
+            </tr>
+            <tr>
+              <td>250 Credits</td>
+              <td>$100 USD</td>
+              <td>20% discount</td>
+            </tr>
+            <tr>
+              <td>500 Credits</td>
+              <td>$175 USD</td>
+              <td>30% discount</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Purchase Flow</h3>
+        <ol>
+          <li>User clicks "Buy Extra Credits"</li>
+          <li>Selects credit pack</li>
+          <li>Stripe payment modal opens</li>
+          <li>Payment processed</li>
+          <li>Credits added instantly to account</li>
+          <li>Email confirmation sent</li>
+        </ol>
+      </section>
+
+      <!-- Notifications -->
+      <section id="notifications">
+        <h2>Credit Notification System</h2>
+
+        <h3>Email Alerts (Automated)</h3>
+
+        <div class="card">
+          <div class="card-title">📧 50% Credits Used</div>
+          <pre>
+Subject: You've Used Half Your Monthly Credits
+
+Hi [Client Name],
+
+You've used 150 of your 300 monthly credits (50%).
+
+Current balance: 150 credits remaining
+
+Need more credits this month?
+[Buy Extra Credits] or [Upgrade Plan]
+
+- The Gopinion Team</pre
+          >
+        </div>
+
+        <div class="card">
+          <div class="card-title">⚠️ 75% Credits Used</div>
+          <pre>
+Subject: Running Low on Credits - 25% Remaining
+
+Hi [Client Name],
+
+You've used 225 of your 300 monthly credits (75%).
+
+Current balance: 75 credits remaining
+
+To avoid interruption:
+[Buy Extra Credits] or [Upgrade Plan]
+
+- The Gopinion Team</pre
+          >
+        </div>
+
+        <div class="card">
+          <div class="card-title">🚫 100% Credits Depleted</div>
+          <pre>
+Subject: Credits Depleted - SMS Sending Paused
+
+Hi [Client Name],
+
+You've used all 300 of your monthly credits.
+
+SMS sending is paused until:
+• Your next billing date ([Date])
+• You purchase extra credits
+• You upgrade your plan
+
+[Buy Extra Credits] or [Upgrade Plan]
+
+- The Gopinion Team</pre
+          >
+        </div>
+
+        <h3>In-Dashboard Notifications</h3>
+
+        <h4>Credit Counter (Navbar)</h4>
+        <div class="grid">
+          <div class="card">
+            <div class="status-indicator">
+              <div class="status-dot status-green"></div>
+              <span>Normal (>25% remaining)</span>
+            </div>
+            <pre>🟢 Credits: 180/300</pre>
+          </div>
+          <div class="card">
+            <div class="status-indicator">
+              <div class="status-dot status-yellow"></div>
+              <span>Low (10-25% remaining)</span>
+            </div>
+            <pre>🟡 Credits: 45/300</pre>
+          </div>
+          <div class="card">
+            <div class="status-indicator">
+              <div class="status-dot status-red"></div>
+              <span>Critical (<10% remaining)</span>
+            </div>
+            <pre>🔴 Credits: 15/300</pre>
+          </div>
+          <div class="card">
+            <div class="status-indicator">
+              <div class="status-dot status-red"></div>
+              <span>Depleted (0 remaining)</span>
+            </div>
+            <pre>🔴 Credits: 0/300 ⚠️</pre>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <strong>Dashboard Alert Banners:</strong>
+          <ul>
+            <li>Appears when credits <25% remaining</li>
+            <li>Persistent until credits purchased or plan upgraded</li>
+            <li>Dismissible but reappears on next session</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Auto-Renewal -->
+      <section id="renewal">
+        <h2>Auto-Renewal System</h2>
+
+        <h3>Default Behavior</h3>
+        <ul>
+          <li><strong>Auto-renewal: ENABLED by default</strong></li>
+          <li>Credits reset on billing cycle date</li>
+          <li>Subscription auto-renews monthly</li>
+          <li>Payment processed automatically via saved card</li>
+        </ul>
+
+        <h3>User Control</h3>
+        <p>
+          <strong>Toggle Location:</strong> Dashboard → Settings → Billing →
+          Auto-Renewal
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <div class="card-title">✅ ON (Default)</div>
+            <p>Plan auto-renews, credits reset monthly</p>
+          </div>
+          <div class="card">
+            <div class="card-title">❌ OFF</div>
+            <p>Plan cancels at end of current period</p>
+          </div>
+        </div>
+
+        <h3>When Auto-Renewal is OFF</h3>
+        <div class="alert alert-warning">
+          <pre>
+Status: Active until [End Date]
+Credits: Available until [End Date]
+Renewal: Disabled - account will downgrade to Free on [End Date]
+
+[Turn Auto-Renewal Back On]</pre
+          >
+        </div>
+
+        <h3>Renewal Reminder Emails</h3>
+
+        <div class="card">
+          <div class="card-title">7 Days Before Renewal:</div>
+          <pre>
+Subject: Your Gopinion Plan Renews in 7 Days
+
+Hi [Client Name],
+
+Your Growth plan ($99/month) renews on [Date].
+
+What happens:
+• 300 credits refresh
+• Card ending in [1234] charged $99 USD
+• Access continues uninterrupted
+
+Need to make changes?
+[Update Payment Method] | [Change Plan] | [Cancel Subscription]</pre
+          >
+        </div>
+
+        <div class="card">
+          <div class="card-title">Renewal Processed:</div>
+          <pre>
+Subject: Payment Processed - Credits Refreshed
+
+Your Growth plan has renewed successfully.
+
+Receipt: $99.00 USD
+Credits: 300 (refreshed)
+Next billing: [Date]
+
+[View Invoice]</pre
+          >
+        </div>
+      </section>
+
+      <!-- Subscription Management -->
+      <section id="management">
+        <h2>Subscription Management</h2>
+
+        <h3>Plan Upgrades</h3>
+
+        <h4>Process:</h4>
+        <ol>
+          <li>User clicks "Upgrade Plan" in dashboard</li>
+          <li>Views available higher-tier plans</li>
+          <li>Selects new plan</li>
+          <li><strong>Prorated billing calculated</strong></li>
+          <li>Stripe processes difference</li>
+          <li>Plan upgraded immediately</li>
+          <li>Credits updated to new tier allocation</li>
+        </ol>
+
+        <h4>Proration Example:</h4>
+        <div class="example">
+          <div class="example-title">
+            Upgrade from Growth to Pro (Mid-Cycle)
+          </div>
+          <pre>
+Current Plan: Growth ($99/month, 300 credits)
+New Plan: Pro ($199/month, 750 credits)
+Days into cycle: 15 of 30
+Unused days: 15
+
+Calculation:
+Pro plan cost: $199
+Days remaining: 15/30 = 50%
+Proration charge: $199 × 50% = $99.50
+Already paid (Growth): $99 × 50% = $49.50
+Amount due now: $99.50 - $49.50 = $50.00
+
+Result:
+→ Charged $50 immediately
+→ Credits increase from 300 to 750 instantly
+→ Next full charge: $199 on next billing date</pre
+          >
+        </div>
+
+        <h3>Plan Downgrades</h3>
+
+        <h4>Process:</h4>
+        <ol>
+          <li>User clicks "Change Plan" → Selects lower tier</li>
+          <li>System confirms downgrade details</li>
+          <li>
+            <strong>Downgrade scheduled for next billing date</strong> (not
+            immediate)
+          </li>
+          <li>Current plan features remain active until end of period</li>
+          <li>Credits remain at current tier until renewal</li>
+        </ol>
+
+        <h4>Downgrade Confirmation:</h4>
+        <div class="alert alert-warning">
+          <div class="alert-title">⚠️ Confirm Plan Downgrade</div>
+          <pre>
+Current: Growth ($99/month, 300 credits)
+New: Starter ($49/month, 100 credits)
+
+Changes take effect: [Next Billing Date]
+
+Until then:
+✅ Keep 300 credits/month
+✅ Keep 3 review platforms  
+✅ Keep priority support
+
+After [Date]:
+→ 100 credits/month
+→ 1 review platform only
+→ Email support
+
+[Confirm Downgrade] [Cancel]</pre
+          >
+        </div>
+
+        <h3>Subscription Cancellation</h3>
+        <p>
+          <strong>Access:</strong> Dashboard → Settings → Billing → Cancel
+          Subscription
+        </p>
+
+        <h4>Process:</h4>
+        <ol>
+          <li>User clicks "Cancel Subscription"</li>
+          <li>System shows cancellation confirmation screen</li>
+          <li>User confirms (1-click, no phone call required)</li>
+          <li>Auto-renewal disabled</li>
+          <li>Access continues through end of billing period</li>
+          <li>Confirmation email sent</li>
+        </ol>
+
+        <h4>Cancellation Confirmation:</h4>
+        <div class="alert alert-danger">
+          <div class="alert-title">⚠️ Cancel Subscription?</div>
+          <pre>
+Your Growth plan will be canceled.
+
+What happens:
+✅ Access continues until [End Date]
+✅ Credits remain available until [End Date]
+✅ No further charges to your card
+❌ Plan will not renew on [End Date]
+
+You can reactivate anytime before [End Date].
+
+[Yes, Cancel Subscription] [Keep My Plan]</pre
+          >
+        </div>
+
+        <h4>Post-Cancellation Email:</h4>
+        <div class="card">
+          <pre>
+Subject: Subscription Canceled - Access Until [Date]
+
+Hi [Client Name],
+
+Your Gopinion subscription has been canceled.
+
+Access details:
+• Plan active until: [End Date]
+• Credits available: 180 remaining  
+• No further billing
+
+Reactivate anytime: [Reactivate Subscription]
+
+We'd love your feedback: [Quick Survey]
+
+- The Gopinion Team</pre
+          >
+        </div>
+      </section>
+
+      <!-- Dashboard UI -->
+      <section id="ui">
+        <h2>Dashboard UI Elements</h2>
+
+        <h3>Navbar Credit Counter</h3>
+        <p><strong>Location:</strong> Top-right of navbar (always visible)</p>
+
+        <h4>Display States:</h4>
+
+        <div class="grid">
+          <div class="card">
+            <div class="card-title">Healthy (>25% remaining)</div>
+            <pre>
+┌─────────────────┐
+│ 💳 Credits      │
+│ 245 / 300       │
+└─────────────────┘</pre
+            >
+          </div>
+
+          <div class="card">
+            <div class="card-title">Low (10-25% remaining)</div>
+            <pre>
+┌─────────────────┐
+│ ⚠️ Credits      │
+│ 45 / 300        │
+│ [Buy More]      │
+└─────────────────┘</pre
+            >
+          </div>
+
+          <div class="card">
+            <div class="card-title">Critical (<10% remaining)</div>
+            <pre>
+┌─────────────────┐
+│ 🔴 Credits      │
+│ 15 / 300        │
+│ [Buy Now!]      │
+└─────────────────┘</pre
+            >
+          </div>
+
+          <div class="card">
+            <div class="card-title">Depleted</div>
+            <pre>
+┌─────────────────┐
+│ 🚫 Credits      │
+│ 0 / 300         │
+│ Sending Paused  │
+│ [Buy Credits]   │
+└─────────────────┘</pre
+            >
+          </div>
+        </div>
+
+        <h3>Credit History Page</h3>
+        <p><strong>Access:</strong> Dashboard → Credits → History</p>
+
+        <h4>Displays:</h4>
+        <ul>
+          <li>Date/time of each credit transaction</li>
+          <li>Credits consumed</li>
+          <li>Action type (Single SMS, Bulk CSV, MMS)</li>
+          <li>Recipient phone number</li>
+          <li>Remaining balance after transaction</li>
+        </ul>
+
+        <h4>Example Entry:</h4>
+        <div class="example">
+          <pre>
+Nov 28, 2025 2:34 PM
+-2 credits → SMS + Logo (MMS)  
+To: +1-555-0123
+Balance: 145 / 300</pre
+          >
+        </div>
+      </section>
+
+      <!-- Technical Implementation -->
+      <section id="technical">
+        <h2>Technical Implementation Notes</h2>
+
+        <h3>Credit Tracking Database Schema</h3>
+
+        <h4>Suggested Tables:</h4>
+
+        <div class="card">
+          <div class="card-title">subscriptions</div>
+          <ul>
+            <li><code>user_id</code></li>
+            <li><code>plan_type</code> (starter/growth/pro/custom)</li>
+            <li><code>credits_allocated</code> (monthly limit)</li>
+            <li><code>credits_used</code> (current period usage)</li>
+            <li><code>credits_bonus</code> (one-time purchased credits)</li>
+            <li><code>billing_cycle_start</code></li>
+            <li><code>auto_renew</code> (boolean)</li>
+            <li><code>status</code> (active/canceled/expired)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">credit_transactions</div>
+          <ul>
+            <li><code>transaction_id</code></li>
+            <li><code>user_id</code></li>
+            <li><code>credits_consumed</code></li>
+            <li><code>action_type</code> (sms/mms/bulk_csv)</li>
+            <li><code>recipient_phone</code></li>
+            <li><code>timestamp</code></li>
+            <li><code>remaining_balance</code></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">csv_uploads</div>
+          <ul>
+            <li><code>upload_id</code></li>
+            <li><code>user_id</code></li>
+            <li><code>total_rows</code></li>
+            <li><code>rows_processed</code></li>
+            <li><code>rows_rejected</code></li>
+            <li><code>credits_consumed</code></li>
+            <li><code>upload_timestamp</code></li>
+          </ul>
+        </div>
+
+        <h3>Stripe Integration Points</h3>
+
+        <h4>Webhook Events to Handle:</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Webhook Event</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>checkout.session.completed</code></td>
+              <td>Provision credits, create account</td>
+            </tr>
+            <tr>
+              <td><code>invoice.payment_succeeded</code></td>
+              <td>Reset monthly credits</td>
+            </tr>
+            <tr>
+              <td><code>customer.subscription.updated</code></td>
+              <td>Handle upgrades/downgrades</td>
+            </tr>
+            <tr>
+              <td><code>customer.subscription.deleted</code></td>
+              <td>Handle cancellations</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Email Triggers</h3>
+        <p><em>(via SendGrid/Mailgun)</em></p>
+
+        <h4>Credit-based:</h4>
+        <ul>
+          <li>50% threshold reached</li>
+          <li>75% threshold reached</li>
+          <li>100% depleted</li>
+        </ul>
+
+        <h4>Subscription-based:</h4>
+        <ul>
+          <li>7 days before renewal</li>
+          <li>Renewal processed</li>
+          <li>Upgrade confirmed</li>
+          <li>Downgrade scheduled</li>
+          <li>Cancellation confirmed</li>
+        </ul>
+
+        <h3>Error Handling & Edge Cases</h3>
+
+        <h4>Insufficient Credits During Send</h4>
+
+        <div class="card">
+          <div class="card-title">Single SMS Attempt:</div>
+          <div class="alert alert-danger">
+            <strong>Error:</strong> Insufficient credits<br />
+            <strong>Message:</strong> You have 0 credits remaining. Purchase
+            more credits or wait until [Renewal Date].<br />
+            <strong>Actions:</strong> [Buy Credits] [Upgrade Plan]
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Bulk CSV Upload:</div>
+          <div class="alert alert-warning">
+            <strong>Warning:</strong> Partial upload<br />
+            <strong>Message:</strong> Only 30 of 40 contacts uploaded due to
+            insufficient credits.<br />
+            Rows processed: 1-30<br />
+            Rows skipped: 31-40<br />
+            <strong>Actions:</strong> [Buy Credits] [Upgrade Plan] [Download
+            Skipped Rows]
+          </div>
+        </div>
+
+        <h4>Failed Payment on Renewal</h4>
+        <ol>
+          <li>Retry payment 3 times over 7 days</li>
+          <li>Email user with payment failure notice</li>
+          <li>If all retries fail: Suspend account, retain data for 30 days</li>
+          <li>User can update payment method to restore access</li>
+        </ol>
+
+        <h4>Plan Downgrade with Active Features</h4>
+        <div class="example">
+          <div class="example-title">Scenario:</div>
+          <p>
+            User on Pro downgrades to Starter but has 3 review platforms
+            configured
+          </p>
+          <div class="example-title">Resolution:</div>
+          <ul>
+            <li>
+              User prompted to select which 1 platform to keep (Starter allows
+              only 1)
+            </li>
+            <li>Other platforms disabled on downgrade effective date</li>
+            <li>Historical data from all platforms retained</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Summary Checklist -->
+      <section>
+        <h2>Summary Checklist</h2>
+
+        <h3>Core Features</h3>
+        <div class="grid">
+          <div class="card">
+            <ul>
+              <li>✅ Credit-based SMS system (1 credit = 1 SMS)</li>
+              <li>✅ Split SMS (message + link) = 1 credit</li>
+              <li>✅ MMS logo attachment = +1 credit (total 2)</li>
+              <li>✅ CSV bulk upload with credit validation</li>
+              <li>✅ Partial CSV processing when insufficient credits</li>
+              <li>✅ In-dashboard credit purchases</li>
+            </ul>
+          </div>
+          <div class="card">
+            <ul>
+              <li>✅ Automated email notifications (50%, 75%, 100%)</li>
+              <li>✅ Navbar credit counter with status indicators</li>
+              <li>✅ Auto-renewal toggle (ON by default)</li>
+              <li>✅ Plan upgrades (immediate, prorated)</li>
+              <li>✅ Plan downgrades (effective next billing date)</li>
+              <li>✅ One-click subscription cancellation</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>User Journey</h3>
+        <ol>
+          <li>Purchase plan on maxxmedia.ca/pricing</li>
+          <li>Pay via Stripe</li>
+          <li>Redirect to Gopinion signup</li>
+          <li>Create account with provisioned credits</li>
+          <li>Access dashboard with credit counter</li>
+          <li>Send SMS, upload CSV, manage subscription</li>
+          <li>Receive notifications, buy credits, upgrade/cancel as needed</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 Gopinion - Reputation Management System</p>
+        <p>Complete Credit System Documentation</p>
+      </div>
+    </footer>
+  </body>
+</html>
